@@ -1,0 +1,403 @@
+/* ======================= RESET E VARIABILI GLOBALI ======================= */
+:root {
+    --dark-bg: #0D1117;
+    --dark-bg-secondary: #161B22;
+    --text-primary: #E6EDF3;
+    --text-secondary: #8B949E;
+    --accent-cyan: #30B6FF;
+    --accent-magenta: #E83D84;
+    --border-color: #30363D;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+p.subtitle {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    color: var(--text-secondary);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ======================= BOTTONI ======================= */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+    color: #fff;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.btn-large {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+}
+
+.btn-cta {
+    padding: 18px 45px;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+
+/* ======================= HEADER ======================= */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+.main-header.scrolled {
+    background-color: rgba(13, 17, 23, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+/* ======================= HERO SECTION ======================= */
+#hero {
+    height: 100vh;
+    width: 100%;
+    background: url('hero3.png') no-repeat center center/cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 17, 23, 0.6);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    max-width: 800px;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* ======================= SEZIONI GENERICHE ======================= */
+.content-section {
+    padding: 80px 0;
+}
+
+#solution {
+    background-color: var(--dark-bg-secondary);
+}
+
+/* ======================= GRIGLIA SOLUZIONE ======================= */
+.solution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.solution-item i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--accent-cyan);
+}
+
+.solution-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ======================= ROADMAP ======================= */
+.roadmap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+.roadmap-item {
+    background-color: var(--dark-bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.roadmap-item.active {
+    opacity: 1;
+    transform: scale(1.05);
+    border-color: var(--accent-cyan);
+}
+.roadmap-line {
+    height: 2px;
+    width: 100px;
+    background-color: var(--border-color);
+}
+
+.roadmap-subtitle {
+    margin-top: 2rem;
+}
+
+/* ======================= PROGRAMMA FOUNDER ======================= */
+#founder-program {
+     background-color: var(--dark-bg-secondary);
+}
+.founder-perks ul {
+    list-style: none;
+    max-width: 400px;
+    margin: 2rem auto;
+    text-align: left;
+}
+.founder-perks li {
+    margin-bottom: 0.5rem;
+}
+.founder-perks i {
+    color: var(--accent-cyan);
+    margin-right: 10px;
+}
+
+.price-container {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.founder-price {
+    font-size: 3rem;
+    font-family: var(--font-heading);
+    color: var(--accent-cyan); 
+    line-height: 1;
+}
+
+.future-price {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.future-price s {
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+
+/* ======================= FAQ ======================= */
+.faq-container {
+    max-width: 700px;
+    margin: 2rem auto 0 auto;
+}
+.faq-item {
+    border-bottom: 1px solid var(--border-color);
+}
+.faq-question {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+}
+.faq-question i {
+    transition: transform 0.3s ease;
+}
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+.faq-answer p {
+    padding: 0 20px 20px 20px;
+    color: var(--text-secondary);
+}
+
+/* ======================= FOOTER ======================= */
+.main-footer-bottom {
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--dark-bg-secondary);
+}
+.footer-bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.social-links a {
+    color: var(--text-secondary);
+    margin-left: 15px;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+.social-links a:hover {
+    color: var(--accent-cyan);
+}
+
+/* ======================= ANIMAZIONI ======================= */
+.animate-on-load, .animate-on-scroll {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-on-load {
+    transform: translateY(20px);
+}
+.animate-on-scroll {
+     transform: translateY(30px);
+}
+.animate-on-load.visible, .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+
+/* ======================= SEZIONE VALUE PROPOSITION ======================= */
+.comparison-table-wrapper {
+    overflow-x: auto; 
+    margin-top: 4rem;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; 
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.comparison-table th {
+    font-family: var(--font-heading);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.comparison-table td {
+    font-size: 0.95rem;
+}
+
+.comparison-table thead {
+    background-color: var(--dark-bg-secondary);
+}
+
+/* Stile per la prima colonna (feature) */
+.comparison-table tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Stile per le icone */
+.comparison-table i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+.comparison-table .good { color: #28a745; } 
+.comparison-table .mid { color: #ffc107; }  
+.comparison-table .bad { color: #dc3545; }  
+
+
+.comparison-table td:nth-child(2), .comparison-table th:nth-child(2) {
+    background-color: rgba(48, 182, 255, 0.05); 
+}
+
+.price-highlight {
+    font-weight: 700;
+    font-size: 1.2rem !important;
+    color: var(--accent-cyan);
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 768px) {
+    h2 { font-size: 2rem; }
+    .hero-content h1 { font-size: 2.5rem; }
+    .roadmap { flex-direction: column; }
+    .roadmap-line { width: 2px; height: 50px; }
+    .footer-bottom-container { flex-direction: column; text-align: center; }
+}
