@@ -160,6 +160,7 @@ p.subtitle {
     text-align: center;
     position: relative;
     padding: 80px 20px;
+    overflow: hidden;
 }
 
 #hero::before {
