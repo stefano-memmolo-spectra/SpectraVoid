@@ -489,6 +489,7 @@ p.subtitle {
 @media (max-width: 992px) {
     .roadmap-connector { display: none; }
     .roadmap { gap: 30px; }
+    .header-container nav { display: none; }
 }
 
 @media (max-width: 768px) {
