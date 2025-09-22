@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Aggiorna automaticamente l'anno nel footer.
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ======================= GESTIONE ROADMAP SLIDER (CON LOOP INFINITO) =======================
+    // ======================= GESTIONE ROADMAP SLIDER (CON LOOP INFINITO E TRASCINAMENTO) =======================
     const roadmapSliderContainer = document.getElementById('roadmap-slider-container');
 
     if (roadmapSliderContainer) {
@@ -84,82 +84,135 @@ document.addEventListener('DOMContentLoaded', () => {
         let isTransitioning = false;
         let autoScrollInterval;
 
+        // Variabili per il trascinamento
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID = 0;
+
         const setupSlider = () => {
             // Clona i primi elementi per creare l'effetto loop
-            const itemsToClone = 4; // Numero di elementi visibili + buffer
-            for (let i = 0; i < itemsToClone; i++) {
-                const clone = items[i].cloneNode(true);
+            const itemsToCloneCount = 5; // Cloniamo un numero sufficiente di elementi
+            for (let i = 0; i < itemsToCloneCount; i++) {
+                const clone = items[i % items.length].cloneNode(true);
                 slider.appendChild(clone);
             }
             items = Array.from(slider.children); // Aggiorna l'array degli item
         };
 
-        const updateSliderPosition = (withTransition = true) => {
-            const itemWidth = items[0].offsetWidth + 30; // Larghezza item + gap
-            slider.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
-            slider.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        const getItemWidth = () => {
+            return items[0].offsetWidth + 30; // Larghezza item + gap
         };
 
+        const setSliderPosition = () => {
+            slider.style.transform = `translateX(${currentTranslate}px)`;
+        };
+        
+        const updateSliderPosition = (withTransition = true) => {
+            const itemWidth = getItemWidth();
+            currentTranslate = -currentIndex * itemWidth;
+            prevTranslate = currentTranslate;
+            slider.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
+            setSliderPosition();
+        };
+        
+        // Funzioni per lo scorrimento automatico e manuale
         const moveToNext = () => {
             if (isTransitioning) return;
-            isTransitioning = true;
             currentIndex++;
+            slider.style.transition = 'transform 0.5s ease-in-out';
             updateSliderPosition();
-
-            // Listener per il "salto" invisibile
-            slider.addEventListener('transitionend', () => {
-                if (currentIndex >= items.length - 4) { // Se siamo arrivati ai cloni
-                    currentIndex = 0;
-                    updateSliderPosition(false); // Salta indietro senza animazione
-                }
-                isTransitioning = false;
-            }, { once: true });
         };
 
         const moveToPrev = () => {
             if (isTransitioning) return;
-            isTransitioning = true;
-            
-            if (currentIndex === 0) {
-                currentIndex = items.length - 4;
-                updateSliderPosition(false);
-                
-                // Forza un reflow del browser prima di animare
-                setTimeout(() => {
-                    currentIndex--;
-                    updateSliderPosition(true);
-                    isTransitioning = false;
-                }, 20);
-
-            } else {
-                currentIndex--;
-                updateSliderPosition();
-                isTransitioning = false;
-            }
+            currentIndex--;
+            slider.style.transition = 'transform 0.5s ease-in-out';
+            updateSliderPosition();
         };
-
+        
         const startAutoScroll = () => {
             stopAutoScroll();
-            autoScrollInterval = setInterval(moveToNext, 5000);
+            autoScrollInterval = setInterval(() => {
+                // Controlla se l'utente sta interagendo prima di scorrere
+                if (!isDragging) {
+                    moveToNext();
+                }
+            }, 5000);
         };
 
         const stopAutoScroll = () => {
             clearInterval(autoScrollInterval);
         };
 
-        // Event Listeners
-        nextBtn.addEventListener('click', () => {
-            moveToNext();
-            startAutoScroll(); // Resetta il timer
-        });
-
-        prevBtn.addEventListener('click', () => {
-            moveToPrev();
-            startAutoScroll(); // Resetta il timer
-        });
+        // Gestione del loop infinito
+        const handleTransitionEnd = () => {
+            isTransitioning = false;
+            if (currentIndex >= items.length - 5) {
+                currentIndex = 0;
+                updateSliderPosition(false);
+            }
+            if (currentIndex < 0) {
+                currentIndex = items.length - 5 - 1;
+                updateSliderPosition(false);
+            }
+        };
         
-        roadmapSliderContainer.addEventListener('mouseover', stopAutoScroll);
-        roadmapSliderContainer.addEventListener('mouseout', startAutoScroll);
+        // Funzioni per il trascinamento (drag/swipe)
+        const getPositionX = (event) => {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        };
+        
+        const dragStart = (event) => {
+            isDragging = true;
+            startPos = getPositionX(event);
+            animationID = requestAnimationFrame(animation);
+            slider.classList.add('grabbing');
+            slider.style.transition = 'none';
+            stopAutoScroll();
+        };
+
+        const dragMove = (event) => {
+            if (isDragging) {
+                const currentPosition = getPositionX(event);
+                currentTranslate = prevTranslate + currentPosition - startPos;
+            }
+        };
+
+        const animation = () => {
+            setSliderPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        };
+
+        const dragEnd = () => {
+            isDragging = false;
+            cancelAnimationFrame(animationID);
+            slider.classList.remove('grabbing');
+            
+            const movedBy = currentTranslate - prevTranslate;
+            const itemWidth = getItemWidth();
+            // Se il trascinamento è maggiore di un quarto della larghezza dell'item, cambia slide
+            if (movedBy < -itemWidth / 4 && currentIndex < items.length - 1) currentIndex++;
+            if (movedBy > itemWidth / 4 && currentIndex > 0) currentIndex--;
+
+            updateSliderPosition();
+            startAutoScroll();
+        };
+
+        // Event Listeners
+        slider.addEventListener('transitionend', handleTransitionEnd);
+        nextBtn.addEventListener('click', () => { moveToNext(); startAutoScroll(); });
+        prevBtn.addEventListener('click', () => { moveToPrev(); startAutoScroll(); });
+        
+        // Eventi per Drag & Swipe
+        slider.addEventListener('mousedown', dragStart);
+        slider.addEventListener('touchstart', dragStart);
+        slider.addEventListener('mousemove', dragMove);
+        slider.addEventListener('touchmove', dragMove);
+        window.addEventListener('mouseup', dragEnd);
+        slider.addEventListener('touchend', dragEnd);
+        slider.addEventListener('mouseleave', () => { if (isDragging) dragEnd(); });
 
         // Inizializzazione
         setupSlider();
