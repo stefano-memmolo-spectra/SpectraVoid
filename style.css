@@ -486,23 +486,126 @@ p.subtitle {
 
 
 /* ======================= RESPONSIVE ======================= */
+
+/* Stile per Tablet e dispositivi più piccoli (fino a 992px) */
 @media (max-width: 992px) {
-    .roadmap-connector { display: none; }
-    .roadmap { gap: 30px; }
+    .roadmap-connector { 
+        display: none; 
+    }
+    .roadmap { 
+        gap: 30px; 
+    }
+    .roadmap-item {
+        flex: 0 0 280px;
+    }
 }
 
+
+/* Stile per Smartphone e Tablet in verticale (fino a 768px) */
 @media (max-width: 768px) {
-    body { font-size: 16px; overflow-x: hidden; }
-    h2 { font-size: 2.2rem; }
-    .hero-content h1 { font-size: 2.8rem; }
-    .h2-subtitle { font-size: 1.2rem; }
-    .footer-bottom-container { flex-direction: column; text-align: center; }
-    .social-links a { margin: 0 10px; }
-    .main-header { padding: 15px 0; }
-    .logo-img { height: 30px; }
-    .logo { font-size: 1.2rem; gap: 8px;}
-    .header-container nav { display: none; }
-    .slider-container { overflow: hidden; }
+    body { 
+        font-size: 16px; 
+    }
+
+    h2 { 
+        font-size: 2.2rem; /* Leggermente più piccolo per stare meglio nello schermo */
+    }
+
+    .h2-subtitle { 
+        font-size: 1.1rem; 
+    }
+    
+    /* --- Header --- */
+    .main-header { 
+        padding: 15px 0; 
+    }
+
+    .logo-img { 
+        height: 30px; 
+    }
+
+    .logo { 
+        font-size: 1.2rem; 
+        gap: 8px;
+    }
+
+    /* CORREZIONE: Prima il pulsante "Diventa un Founder" spariva su mobile.
+       Ora lo rendiamo visibile ma leggermente più piccolo. */
+    .header-container nav .btn-small {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        display: none; /* Lo nascondiamo per ora */
+    }
+
+
+    /* --- Hero Section --- */
+    #hero {
+        /* Riduciamo lo spazio per adattarsi meglio all'altezza del telefono */
+        padding-top: 100px;
+        padding-bottom: 60px;
+    }
+    
+    .hero-content h1 { 
+        /* Questa è la correzione principale! Riduciamo molto il titolo. */
+        font-size: 2.5rem; 
+        line-height: 1.2; /* Migliora la leggibilità se il testo va su più righe */
+    }
+    
+    
+    /* --- Sezioni Generali --- */
+    .content-section {
+        padding: 80px 0; /* Meno spazio verticale tra le sezioni */
+    }
+
+
+    /* --- Slider Roadmap --- */
+    .slider-container {
+        -webkit-mask-image: none; /* Rimuoviamo un effetto che può dare problemi su mobile */
+        mask-image: none;
+    }
+
+    .roadmap-item {
+        flex: 0 0 250px; /* Riduciamo la larghezza degli elementi dello slider */
+    }
+
+
+    /* --- Footer --- */
+    .footer-bottom-container { 
+        flex-direction: column; /* Mettiamo gli elementi in colonna */
+        text-align: center; 
+    }
+    .social-links a { 
+        margin: 10px; /* Diamo più spazio alle icone social */
+    }
+}
+
+/* Aggiungiamo uno stile specifico per gli schermi più piccoli (sotto i 480px) */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.1rem; /* Riduciamo ancora un po' il titolo per i telefoni più stretti */
+    }
+    
+    h2 {
+        font-size: 1.9rem;
+    }
+
+    p.subtitle {
+        font-size: 1rem;
+    }
+
+    .btn-cta {
+        padding: 15px 30px; /* Riduciamo il pulsante d'azione principale */
+        font-size: 1rem;
+    }
+}
+
+/* Regole per il Slider su mobile che erano nel file originale */
+.roadmap-slider {
+    cursor: grab;
+}
+
+.roadmap-slider.grabbing {
+    cursor: grabbing;
 }
 
 /* ======================= ROADMAP SLIDER ======================= */
