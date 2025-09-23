@@ -469,15 +469,15 @@ p.subtitle {
 }
 
 .main-footer-bottom .footer-bottom-container a {
-    color: var(--text-secondary); /* Colore simile al testo secondario per coerenza */
-    text-decoration: none; /* Rimuove la sottolineatura predefinita */
-    transition: color 0.2s ease, transform 0.2s ease; /* Transizione per l'effetto hover */
-    margin: 0 10px; /* Aggiunge un po' di spazio ai lati, se necessario */
+    color: var(--text-secondary); 
+    text-decoration: none; 
+    transition: color 0.2s ease, transform 0.2s ease; 
+    margin: 0 10px; 
 }
 
 .main-footer-bottom .footer-bottom-container a:hover {
-    color: var(--accent-cyan); /* Colore accentuato al passaggio del mouse */
-    transform: scale(1.05); /* Leggero ingrandimento al passaggio del mouse */
+    color: var(--accent-cyan); 
+    transform: scale(1.05);
 }
 
 /* ======================= ANIMAZIONI ======================= */
