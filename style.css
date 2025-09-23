@@ -468,6 +468,18 @@ p.subtitle {
     transform: scale(1.1);
 }
 
+.main-footer-bottom .footer-bottom-container a {
+    color: var(--text-secondary); /* Colore simile al testo secondario per coerenza */
+    text-decoration: none; /* Rimuove la sottolineatura predefinita */
+    transition: color 0.2s ease, transform 0.2s ease; /* Transizione per l'effetto hover */
+    margin: 0 10px; /* Aggiunge un po' di spazio ai lati, se necessario */
+}
+
+.main-footer-bottom .footer-bottom-container a:hover {
+    color: var(--accent-cyan); /* Colore accentuato al passaggio del mouse */
+    transform: scale(1.05); /* Leggero ingrandimento al passaggio del mouse */
+}
+
 /* ======================= ANIMAZIONI ======================= */
 .animate-on-load, .animate-on-scroll {
     opacity: 0;
