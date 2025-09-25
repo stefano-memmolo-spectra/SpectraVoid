@@ -2,8 +2,8 @@
 :root {
     --dark-bg: #0D1117;
     --dark-bg-secondary: #161B22;
-    --text-primary: #E6EDF3; 
-    --text-secondary: #a2acb5; 
+    --text-primary: #e7edf1; 
+    --text-secondary: #d9d9d9; 
     --accent-cyan: #30B6FF;
     --accent-magenta: #E83D84;
     --accent-green: #28a745;
@@ -313,6 +313,7 @@ p.subtitle {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 4rem;
+    /*align-items: center; /* Allinea verticalmente le card se hanno altezze diverse */
 }
 .comparison-card {
     background-color: var(--dark-bg-secondary);
@@ -320,15 +321,30 @@ p.subtitle {
     border-radius: 12px;
     padding: 30px;
     text-align: left;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease; /* Transizione fluida per tutti gli effetti */
+    display: flex;
+    flex-direction: column;
 }
-.comparison-card:hover {
-    border-color: var(--accent-cyan);
+.comparison-card:hover { 
+    transform: scale(1.05);
+    border-color: #a0aec0; /* Grigio chiaro per feedback */
+    box-shadow: 0 0 25px rgba(200, 200, 200, 0.1); /* Glow bianco debole */
 }
+
+/* Stile potenziato per la card SpectraVoid */
 .comparison-card.spectravoid {
+    transform: scale(1.03); /* Leggermente più grande di default */
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 30px rgba(48, 182, 255, 0.2);
+    /* Glow ciano di base, sempre attivo */
+    box-shadow: 0 0 30px rgba(48, 182, 255, 0.2); 
 }
+.comparison-card.spectravoid:hover {
+    transform: scale(1.08); /* Si ingrandisce ancora di più */
+    border-color: var(--accent-cyan);
+    /* Il glow diventa più intenso e vibrante al passaggio del mouse */
+    box-shadow: 0 0 45px rgba(48, 182, 255, 0.5); 
+}
+
 .comparison-card h3 {
     text-align: center;
     font-size: 1.8rem;
@@ -341,28 +357,42 @@ p.subtitle {
     color: var(--accent-cyan);
     margin-bottom: 2rem;
 }
-.comparison-card ul {
-    list-style: none;
+.comparison-card ul { 
+    list-style: none; 
     padding: 0;
+    flex-grow: 1;
 }
 .comparison-card li {
     padding: 12px 0;
     border-bottom: 1px solid var(--border-color);
+}
+.comparison-card li:last-child { border-bottom: none; }
+
+.perk-title {
     display: flex;
     align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
 }
-.comparison-card li:last-child {
-    border-bottom: none;
-}
-.comparison-card i {
-    margin-right: 12px;
+.perk-title i {
     font-size: 1.2rem;
     width: 20px;
     text-align: center;
 }
+.perk-title strong {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+}
+.perk-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    padding-left: 32px;
+}
+
 .good { color: var(--accent-green); } 
 .mid { color: var(--accent-yellow); }  
-.bad { color: var(--accent-red); }  
+.bad { color: var(--accent-red); }
 
 /* ======================= PROGRAMMA FOUNDER ======================= */
 .founder-perks ul {
@@ -750,4 +780,38 @@ p.subtitle {
 
 .roadmap-slider.grabbing {
     cursor: grabbing;
+}
+
+/* ======================= SEZIONE PROBLEMA (NUOVA GRIGLIA) ======================= */
+.problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.problem-item {
+    background-color: var(--dark-bg-secondary);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.problem-item i {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-red); /* Usiamo il rosso per evidenziare il "problema" */
+}
+
+.problem-item h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.problem-item p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
 }
